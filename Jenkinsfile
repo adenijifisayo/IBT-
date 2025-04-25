@@ -1,27 +1,23 @@
 pipeline {
     agent any
-    parameters{
-        string(name: 'Branch_name', defaultValue: 'main', description: 'branch to work on')
-       choice(name: 'ENV', choices: ['dev', 'staging', 'prod'], description: 'Select the environment')
+
+    parameters {
+        string(name: 'Branch_name', defaultValue: 'main', description: 'Branch to work on')
+        choice(name: 'ENV', choices: ['dev', 'staging', 'prod'], description: 'Select the environment')
     }
-    
 
     stages {
-        stage('good') {
-            steps {
-                echo 'Hi'
-            }
-        }
-         stage('myguy') {
-            steps {
-                echo 'Howfar'
-            }
-        }
         stage('gitcheckout') {
             steps {
-                checkout scmGit(branches: [[name: '*/%Branch_name%']], extensions: [], userRemoteConfigs: [[credentialsId: 'github credential  ', url: 'https://github.com/adenijifisayo/IBT-.git']])
-                bat 'dir '
-                echo %Branch_name%
+                // Export the parameters as environment variables for Windows
+                withEnv(["Branch_name=${params.Branch_name}", "ENV=${params.ENV}"]) {
+                    bat '''
+                        echo Branch selected: %Branch_name%
+                        echo Environment selected: %ENV%
+                        git clone -b %Branch_name% https://github.com/adenijifisayo/IBT-.git
+                        dir
+                    '''
+                }
             }
         }
     }
