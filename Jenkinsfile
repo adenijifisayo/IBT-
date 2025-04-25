@@ -12,5 +12,10 @@ pipeline {
                 echo 'Howfar'
             }
         }
+        stage('gitcheckout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/feature-fisayo']], extensions: [], userRemoteConfigs: [[credentialsId: 'github credential  ', url: 'https://github.com/adenijifisayo/IBT-.git']])
+            }
+        }
     }
 }
