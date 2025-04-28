@@ -7,9 +7,9 @@ pipeline {
                 echo 'Hello World'
             }
         }
-        stage('webhooks') {
+        stage('damnbro') {
             steps {
-                echo 'webhooks'
+                echo 'chill'
             }
         }
     }
