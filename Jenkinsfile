@@ -8,6 +8,11 @@ pipeline {
             }
         }
         stage('damnbro') {
+            when{
+                expression{
+                    BRANCH_NAME=='main'
+                }
+            }
             steps {
                 echo 'chill'
             }
