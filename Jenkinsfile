@@ -1,6 +1,10 @@
 pipeline {
-    environment{ 
-        version = '1.2.2'
+    environment{
+        version = '1.1.2'
+    }
+    tools{
+        maven'maven_3.99'
+        git'git_1.0.0'
     }
     agent any
 
@@ -8,17 +12,10 @@ pipeline {
         stage('Hello') {
             steps {
                 echo 'Hello World'
-                echo '{env.version}'
-            }
-        }
-        stage('damnbro') {
-            when{
-                expression{
-                    env.BRANCH_NAME=='main'
-                }
-            }
-            steps {
-                echo 'chill'
+                bat '''git clone https://github.com/adenijifisayo/IBT-.git '''
+                 bat '''dir '''
+                  bat '''mvn compile'''
+                
             }
         }
     }
